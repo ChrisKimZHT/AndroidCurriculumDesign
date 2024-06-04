@@ -1,5 +1,6 @@
 package com.zouht.note.data
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.zouht.note.model.Comment
 
@@ -15,6 +16,7 @@ class CommentManager(private val context: Context) {
         db.close()
     }
 
+    @SuppressLint("Range")
     fun listComments(noteId: Int): List<Comment> {
         val db = dbHelper.readableDatabase
         val cursor =
@@ -35,6 +37,7 @@ class CommentManager(private val context: Context) {
         return list
     }
 
+    @SuppressLint("Range")
     fun getCommentByCommentId(commentId: Int): Comment {
         val db = dbHelper.readableDatabase
         val cursor =
@@ -52,6 +55,7 @@ class CommentManager(private val context: Context) {
         return comment
     }
 
+    @SuppressLint("Range")
     fun getCommentsByUserId(userId: Int): List<Comment> {
         val db = dbHelper.readableDatabase
         val cursor =
@@ -72,6 +76,7 @@ class CommentManager(private val context: Context) {
         return list
     }
 
+    @SuppressLint("Range")
     fun getCommentsByNoteId(noteId: Int): List<Comment> {
         val db = dbHelper.readableDatabase
         val cursor =

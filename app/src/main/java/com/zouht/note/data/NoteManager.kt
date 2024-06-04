@@ -1,5 +1,6 @@
 package com.zouht.note.data
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.zouht.note.model.Note
 
@@ -15,6 +16,7 @@ class NoteManager(private val context: Context) {
         db.close()
     }
 
+    @SuppressLint("Range")
     fun listNotes(): List<Note> {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM note", null)
@@ -34,6 +36,7 @@ class NoteManager(private val context: Context) {
         return list
     }
 
+    @SuppressLint("Range")
     fun getNoteByNoteId(noteId: Int): Note {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM note WHERE noteId = ?", arrayOf(noteId.toString()))
@@ -50,6 +53,7 @@ class NoteManager(private val context: Context) {
         return note
     }
 
+    @SuppressLint("Range")
     fun getNotesByUserId(userId: Int): List<Note> {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM note WHERE userId = ?", arrayOf(userId.toString()))
