@@ -37,7 +37,28 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="账号: "
+                    android:text="邮箱: "
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/emailInput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:hint="请输入邮箱" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="昵称: "
                     android:textSize="20sp" />
 
                 <EditText
@@ -45,7 +66,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:hint="请输入用户名" />
+                    android:hint="请输入昵称" />
 
             </LinearLayout>
 

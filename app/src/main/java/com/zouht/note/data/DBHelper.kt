@@ -19,8 +19,7 @@ class DBHelper(context: Context) :
                 userId INTEGER PRIMARY KEY AUTOINCREMENT,
                 email TEXT NOT NULL UNIQUE,
                 username TEXT NOT NULL,
-                password TEXT NOT NULL,
-                avatar TEXT
+                password TEXT NOT NULL
             )
             """.trimIndent()
         )

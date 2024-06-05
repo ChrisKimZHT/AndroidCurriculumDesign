@@ -10,8 +10,8 @@ class UserManager(private val context: Context) {
     fun insertUser(user: User) {
         val db = dbHelper.writableDatabase
         db.execSQL(
-            "INSERT INTO user (username, email, password, avatar) VALUES (?, ?, ?, ?)",
-            arrayOf(user.username, user.email, user.password, user.avatar)
+            "INSERT INTO user (username, email, password) VALUES (?, ?, ?)",
+            arrayOf(user.username, user.email, user.password)
         )
         db.close()
     }
@@ -27,7 +27,6 @@ class UserManager(private val context: Context) {
                 cursor.getString(cursor.getColumnIndex("email")),
                 cursor.getString(cursor.getColumnIndex("username")),
                 cursor.getString(cursor.getColumnIndex("password")),
-                cursor.getString(cursor.getColumnIndex("avatar"))
             )
             list.add(user)
         }
@@ -50,8 +49,7 @@ class UserManager(private val context: Context) {
             cursor.getInt(cursor.getColumnIndex("userId")),
             cursor.getString(cursor.getColumnIndex("email")),
             cursor.getString(cursor.getColumnIndex("username")),
-            cursor.getString(cursor.getColumnIndex("password")),
-            cursor.getString(cursor.getColumnIndex("avatar"))
+            cursor.getString(cursor.getColumnIndex("password"))
         )
         cursor.close()
         db.close()
@@ -72,8 +70,7 @@ class UserManager(private val context: Context) {
             cursor.getInt(cursor.getColumnIndex("userId")),
             cursor.getString(cursor.getColumnIndex("email")),
             cursor.getString(cursor.getColumnIndex("username")),
-            cursor.getString(cursor.getColumnIndex("password")),
-            cursor.getString(cursor.getColumnIndex("avatar"))
+            cursor.getString(cursor.getColumnIndex("password"))
         )
         cursor.close()
         db.close()
@@ -83,8 +80,8 @@ class UserManager(private val context: Context) {
     fun updateUser(user: User) {
         val db = dbHelper.writableDatabase
         db.execSQL(
-            "UPDATE user SET username = ?, email = ?, password = ?, avatar = ? WHERE userId = ?",
-            arrayOf(user.username, user.email, user.password, user.avatar, user.userId)
+            "UPDATE user SET username = ?, email = ?, password = ? WHERE userId = ?",
+            arrayOf(user.username, user.email, user.password, user.userId)
         )
         db.close()
     }
