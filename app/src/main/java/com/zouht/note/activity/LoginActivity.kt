@@ -12,8 +12,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
 import com.zouht.note.R
+import com.zouht.note.data.UserManager
 
 class LoginActivity : AppCompatActivity() {
+    private val userManager = UserManager(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -48,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun acquireInput(): Pair<String, String> {
-        val email = findViewById<EditText>(R.id.usernameInput).text.toString()
+        val email = findViewById<EditText>(R.id.emailInput).text.toString()
         val password = findViewById<EditText>(R.id.passwordInput).text.toString()
         return Pair(email, password)
     }
@@ -58,10 +61,35 @@ class LoginActivity : AppCompatActivity() {
         if (email.isEmpty() || password.isEmpty()) {
             Snackbar.make(
                 findViewById(R.id.main),
-                "请输入账号和密码",
+                "请输入邮箱和密码",
                 Snackbar.LENGTH_SHORT
             ).show()
             return
+        }
+        val user = userManager.getUserByEmail(email)
+        if (user == null) {
+            Snackbar.make(
+                findViewById(R.id.main),
+                "邮箱或密码错误",
+                Snackbar.LENGTH_SHORT
+            ).show()
+            return
+        }
+        if (user.password == password) {
+            val sharedPref = getSharedPreferences("login", MODE_PRIVATE)
+            val editor = sharedPref.edit()
+            editor.putBoolean("stat", true)
+            editor.apply()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("userId", user.userId)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        } else {
+            Snackbar.make(
+                findViewById(R.id.main),
+                "邮箱或密码错误",
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 

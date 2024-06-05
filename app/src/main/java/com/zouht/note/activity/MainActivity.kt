@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkLoginStat() {
         val sharedPref = getSharedPreferences("login", MODE_PRIVATE)
-        val loginStat = sharedPref.getBoolean("loginStat", false)
+        val loginStat = sharedPref.getBoolean("stat", false)
         if (!loginStat) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
