@@ -3,6 +3,7 @@ package com.zouht.note.activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -53,14 +54,14 @@ class MainActivity : AppCompatActivity() {
     private fun initListeners() {
         findViewById<Button>(R.id.logoutBtn).setOnClickListener { onLogoutBtnClick() }
         findViewById<Button>(R.id.createBtn).setOnClickListener { onCreateNoteBtnClick() }
+        findViewById<ImageButton>(R.id.searchBtn).setOnClickListener { onSearchBtnClick() }
     }
 
-    private fun initNoteList() {
-        var notes: List<Note> = noteManager.listNotes()
-        notes = notes.sortedByDescending { it.createdTime }
+    private fun initNoteList(notes: List<Note> = noteManager.listNotes()) {
+        val sortedNotes = notes.sortedByDescending { it.createdTime }
         val noteList = findViewById<RecyclerView>(R.id.noteList)
         noteList.layoutManager = LinearLayoutManager(this)
-        noteList.adapter = NoteListAdapter(notes)
+        noteList.adapter = NoteListAdapter(sortedNotes)
     }
 
     private fun onLogoutBtnClick() {
@@ -75,5 +76,11 @@ class MainActivity : AppCompatActivity() {
     private fun onCreateNoteBtnClick() {
         val intent = Intent(this, EditActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun onSearchBtnClick() {
+        val searchText = findViewById<TextView>(R.id.searchEditText).text.toString()
+        val notes: List<Note> = noteManager.searchNoteByTitle(searchText)
+        initNoteList(notes)
     }
 }

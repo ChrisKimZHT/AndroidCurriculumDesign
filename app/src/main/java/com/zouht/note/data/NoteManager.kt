@@ -78,6 +78,26 @@ class NoteManager(private val context: Context) {
         return list
     }
 
+    @SuppressLint("Range")
+    fun searchNoteByTitle(title: String): List<Note> {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM note WHERE title LIKE ?", arrayOf("%$title%"))
+        val list = mutableListOf<Note>()
+        while (cursor.moveToNext()) {
+            val note = Note(
+                cursor.getInt(cursor.getColumnIndex("noteId")),
+                cursor.getInt(cursor.getColumnIndex("userId")),
+                cursor.getString(cursor.getColumnIndex("title")),
+                cursor.getString(cursor.getColumnIndex("content")),
+                cursor.getLong(cursor.getColumnIndex("createdTime"))
+            )
+            list.add(note)
+        }
+        cursor.close()
+        db.close()
+        return list
+    }
+
     fun updateNote(note: Note) {
         val db = dbHelper.writableDatabase
         db.execSQL(

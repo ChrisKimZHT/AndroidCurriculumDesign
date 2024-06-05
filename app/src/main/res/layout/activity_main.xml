@@ -68,11 +68,42 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/noteList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:background="@drawable/textarea_background"
                 android:padding="12dp"
                 android:scrollbars="vertical" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/search_edittext_background"
+                    android:hint="搜索..."
+                    android:inputType="text"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="40dp"
+                    android:textSize="16sp" />
+
+                <ImageButton
+                    android:id="@+id/searchBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_search" />
+
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 
