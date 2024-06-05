@@ -1,11 +1,13 @@
 package com.zouht.note.util
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zouht.note.R
+import com.zouht.note.activity.NoteActivity
 import com.zouht.note.model.Note
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -20,7 +22,15 @@ class NoteListAdapter(private val notes: List<Note>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.note_list_item, parent, false)
-        return ViewHolder(view)
+        val viewHolder = ViewHolder(view)
+        viewHolder.itemView.setOnClickListener {
+            val position = viewHolder.adapterPosition
+            val note = notes[position]
+            val intent = Intent(viewHolder.itemView.context, NoteActivity::class.java)
+            intent.putExtra("noteId", note.noteId)
+            viewHolder.itemView.context.startActivity(intent)
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.NoteSharingPlatform"
         tools:targetApi="31">
         <activity
+            android:name=".activity.NoteActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.EditActivity"
             android:exported="false" />
         <activity
