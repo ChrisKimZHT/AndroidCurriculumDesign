@@ -37,10 +37,15 @@ class UserManager(private val context: Context) {
     }
 
     @SuppressLint("Range")
-    fun getUserById(userId: Int): User {
+    fun getUserById(userId: Int): User? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM user WHERE userId = ?", arrayOf(userId.toString()))
         cursor.moveToNext()
+        if (cursor.count == 0) {
+            cursor.close()
+            db.close()
+            return null
+        }
         val user = User(
             cursor.getInt(cursor.getColumnIndex("userId")),
             cursor.getString(cursor.getColumnIndex("email")),
@@ -54,10 +59,15 @@ class UserManager(private val context: Context) {
     }
 
     @SuppressLint("Range")
-    fun getUserByEmail(email: String): User {
+    fun getUserByEmail(email: String): User? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM user WHERE email = ?", arrayOf(email))
         cursor.moveToNext()
+        if (cursor.count == 0) {
+            cursor.close()
+            db.close()
+            return null
+        }
         val user = User(
             cursor.getInt(cursor.getColumnIndex("userId")),
             cursor.getString(cursor.getColumnIndex("email")),

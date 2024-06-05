@@ -37,10 +37,15 @@ class NoteManager(private val context: Context) {
     }
 
     @SuppressLint("Range")
-    fun getNoteByNoteId(noteId: Int): Note {
+    fun getNoteByNoteId(noteId: Int): Note? {
         val db = dbHelper.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM note WHERE noteId = ?", arrayOf(noteId.toString()))
         cursor.moveToNext()
+        if (cursor.count == 0) {
+            cursor.close()
+            db.close()
+            return null
+        }
         val note = Note(
             cursor.getInt(cursor.getColumnIndex("noteId")),
             cursor.getInt(cursor.getColumnIndex("userId")),

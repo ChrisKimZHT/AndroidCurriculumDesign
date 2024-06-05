@@ -38,11 +38,16 @@ class CommentManager(private val context: Context) {
     }
 
     @SuppressLint("Range")
-    fun getCommentByCommentId(commentId: Int): Comment {
+    fun getCommentByCommentId(commentId: Int): Comment? {
         val db = dbHelper.readableDatabase
         val cursor =
             db.rawQuery("SELECT * FROM comment WHERE commentId = ?", arrayOf(commentId.toString()))
         cursor.moveToNext()
+        if (cursor.count == 0) {
+            cursor.close()
+            db.close()
+            return null
+        }
         val comment = Comment(
             cursor.getInt(cursor.getColumnIndex("commentId")),
             cursor.getInt(cursor.getColumnIndex("noteId")),
