@@ -2,6 +2,8 @@ package com.zouht.note.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,6 +20,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        initListeners()
     }
 
     override fun onStart() {
@@ -31,7 +34,24 @@ class MainActivity : AppCompatActivity() {
         if (!loginStat) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            return
         }
+        val username = sharedPref.getString("username", "")
+        val currentLoginUserText = findViewById<TextView>(R.id.currentLoginUser)
+        currentLoginUserText.text = username
+        return
     }
 
+    private fun initListeners() {
+        findViewById<Button>(R.id.logoutBtn).setOnClickListener { onLogoutBtnClick() }
+    }
+
+    private fun onLogoutBtnClick() {
+        val sharedPref = getSharedPreferences("login", MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.clear()
+        editor.apply()
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
 }

@@ -79,9 +79,11 @@ class LoginActivity : AppCompatActivity() {
             val sharedPref = getSharedPreferences("login", MODE_PRIVATE)
             val editor = sharedPref.edit()
             editor.putBoolean("stat", true)
+            user.userId?.let { editor.putInt("userId", it) }
+            editor.putString("email", email)
+            editor.putString("username", user.username)
             editor.apply()
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("userId", user.userId)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         } else {
