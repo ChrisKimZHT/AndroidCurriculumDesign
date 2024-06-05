@@ -2,9 +2,6 @@ package com.zouht.note.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -17,8 +14,6 @@ import com.zouht.note.R
 import com.zouht.note.data.NoteManager
 import com.zouht.note.model.Note
 import com.zouht.note.util.NoteListAdapter
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private val noteManager = NoteManager(this)
@@ -57,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initListeners() {
         findViewById<Button>(R.id.logoutBtn).setOnClickListener { onLogoutBtnClick() }
+        findViewById<Button>(R.id.createBtn).setOnClickListener { onCreateNoteBtnClick() }
     }
 
     private fun initNoteList() {
@@ -76,6 +72,11 @@ class MainActivity : AppCompatActivity() {
         editor.clear()
         editor.apply()
         val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun onCreateNoteBtnClick() {
+        val intent = Intent(this, EditActivity::class.java)
         startActivity(intent)
     }
 }
