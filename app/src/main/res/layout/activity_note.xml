@@ -92,18 +92,29 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/editBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="3dp"
                     android:layout_weight="1"
-                    android:text="编辑笔记" />
+                    android:text="编辑" />
 
                 <Button
+                    android:id="@+id/deleteBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:text="删除" />
+
+                <Button
+                    android:id="@+id/commentBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
                     android:layout_weight="1"
-                    android:text="删除笔记" />
+                    android:text="评论" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
