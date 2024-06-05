@@ -34,7 +34,7 @@ class NoteListAdapter(private val notes: List<Note>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val sdf = SimpleDateFormat("MM-dd HH:mm", Locale.getDefault())
         holder.noteTitle.text = notes[position].title
         holder.noteTime.text = sdf.format(notes[position].createdTime)
     }
