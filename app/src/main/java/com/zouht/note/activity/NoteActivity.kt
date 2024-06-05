@@ -65,7 +65,7 @@ class NoteActivity : AppCompatActivity() {
         }
         val user = userManager.getUserById(note.userId)
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-        findViewById<Toolbar>(R.id.toolbar).title = note.title
+        findViewById<Toolbar>(R.id.toolbar).title = "笔记详情：${note.title}"
         findViewById<TextView>(R.id.content).text = note.content
         findViewById<TextView>(R.id.author).text = user?.username
         findViewById<TextView>(R.id.date).text = sdf.format(note.createdTime)
