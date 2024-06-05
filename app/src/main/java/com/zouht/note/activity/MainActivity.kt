@@ -28,12 +28,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         initListeners()
-        initNoteList()
     }
 
     override fun onStart() {
         super.onStart()
         checkLoginStat()
+        initNoteList()
     }
 
     private fun checkLoginStat() {
@@ -56,11 +56,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initNoteList() {
-//        val notes = noteManager.listNotes()
-        val notes = ArrayList<Note>()
-        for (i in 1..100) {
-            notes.add(Note(i, 1, "test$i", "content", 0))
-        }
+        var notes: List<Note> = noteManager.listNotes()
+        notes = notes.sortedByDescending { it.createdTime }
         val noteList = findViewById<RecyclerView>(R.id.noteList)
         noteList.layoutManager = LinearLayoutManager(this)
         noteList.adapter = NoteListAdapter(notes)
