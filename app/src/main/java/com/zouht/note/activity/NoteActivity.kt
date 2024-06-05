@@ -20,6 +20,7 @@ import java.util.Locale
 class NoteActivity : AppCompatActivity() {
     private val noteManager = NoteManager(this)
     private val userManager = UserManager(this)
+    private var noteId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class NoteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        noteId = intent.getIntExtra("noteId", -1)
         initActionBar()
         initListeners()
     }
@@ -55,7 +57,6 @@ class NoteActivity : AppCompatActivity() {
     }
 
     private fun initNote() {
-        val noteId = intent.getIntExtra("noteId", -1)
         val note = noteManager.getNoteByNoteId(noteId)
         val userId = getSharedPreferences("login", MODE_PRIVATE).getInt("userId", -1)
         if (note == null) {
@@ -81,7 +82,6 @@ class NoteActivity : AppCompatActivity() {
     }
 
     private fun onEditBtnClick() {
-        val noteId = intent.getIntExtra("noteId", -1)
         val intent = android.content.Intent(this, EditActivity::class.java)
         intent.putExtra("noteId", noteId)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -89,7 +89,6 @@ class NoteActivity : AppCompatActivity() {
     }
 
     private fun onDeleteBtnClick() {
-        val noteId = intent.getIntExtra("noteId", -1)
         val builder = AlertDialog.Builder(this)
         builder.setTitle("删除")
         builder.setMessage("确定要删除这篇笔记吗？")
@@ -105,7 +104,6 @@ class NoteActivity : AppCompatActivity() {
     }
 
     private fun onCommentBtnClick() {
-        val noteId = intent.getIntExtra("noteId", -1)
         val intent = Intent(this, CommentActivity::class.java)
         intent.putExtra("noteId", noteId)
         startActivity(intent)
