@@ -5,5 +5,6 @@ data class Comment(
     val noteId: Int,
     val userId: Int,
     val content: String,
-    val createdTime: Long
+    val createdTime: Long,
+    var username: String = ""
 )

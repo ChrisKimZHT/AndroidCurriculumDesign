@@ -77,6 +77,7 @@ class NoteActivity : AppCompatActivity() {
     private fun initListeners() {
         findViewById<Button>(R.id.editBtn).setOnClickListener { onEditBtnClick() }
         findViewById<Button>(R.id.deleteBtn).setOnClickListener { onDeleteBtnClick() }
+        findViewById<Button>(R.id.commentBtn).setOnClickListener { onCommentBtnClick() }
     }
 
     private fun onEditBtnClick() {
@@ -101,5 +102,12 @@ class NoteActivity : AppCompatActivity() {
         }
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun onCommentBtnClick() {
+        val noteId = intent.getIntExtra("noteId", -1)
+        val intent = Intent(this, CommentActivity::class.java)
+        intent.putExtra("noteId", noteId)
+        startActivity(intent)
     }
 }
